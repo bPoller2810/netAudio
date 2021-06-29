@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace netCall.core.Processors
+namespace netAudio.core.Processors
 {
     public interface IAudioProcessor : IDisposable
     {
