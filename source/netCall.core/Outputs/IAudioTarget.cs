@@ -7,8 +7,8 @@ namespace netAudio.core.Outputs
 
         void OutputAudioData(byte[] data);
 
-        void Open();
-        void Close();
+        bool Open();
+        bool Close();
 
     }
 }

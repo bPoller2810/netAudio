@@ -9,7 +9,6 @@ namespace netAudio.core.Outputs
     /// </summary>
     public class RawAudioTarget : IAudioTarget
     {
-
         #region events
         public event EventHandler<byte[]> AudioOutput;
         #endregion
@@ -19,13 +18,15 @@ namespace netAudio.core.Outputs
         #endregion
 
         #region IAudioTarget
-        public void Open()
+        public bool Open()
         {
             _isOpen = true;
+            return true;
         }
-        public void Close()
+        public bool Close()
         {
             _isOpen = false;
+            return true;
         }
         public void OutputAudioData(byte[] data)
         {
@@ -42,6 +43,5 @@ namespace netAudio.core.Outputs
         {//nothing to dispose
         }
         #endregion
-
     }
 }

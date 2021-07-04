@@ -9,31 +9,33 @@ namespace netAudio.core.Sources
     /// </summary>
     public class RawAudioSource : IAudioSource
     {
-
         #region private member
         private bool _isOpen;
         #endregion
 
         #region public interaction
-        public void SourceAudio(byte[] data)
+        public bool SourceAudio(byte[] data)
         {
             if (!_isOpen)
             {
-                return;
+                return false;
             }
             AudioCaptured?.Invoke(this, data);
+            return true;
         }
         #endregion
 
         #region IAudioSource
         public event EventHandler<byte[]> AudioCaptured;
-        public void Open()
+        public bool Open()
         {
             _isOpen = true;
+            return true;
         }
-        public void Close()
+        public bool Close()
         {
             _isOpen = false;
+            return true;
         }
         #endregion
 
@@ -42,6 +44,5 @@ namespace netAudio.core.Sources
         {//nothing to dispose
         }
         #endregion
-
     }
 }

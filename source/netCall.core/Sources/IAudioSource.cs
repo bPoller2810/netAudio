@@ -7,8 +7,8 @@ namespace netAudio.core.Sources
 
         event EventHandler<byte[]> AudioCaptured;
 
-        void Open();
-        void Close();
+        bool Open();
+        bool Close();
 
     }
 }
