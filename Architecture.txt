@@ -1,76 +1,22 @@
 
+***************************************************************
+TODO:
 
+#IAudioSource
+	NetAudioSource
+		- tcp
+		- udp
+	MicAudioSource
+		- android
+		- iOS
 
+#IAudioTarget
+	NetAudioTarget
+		-tcp
+		-udp
+	SpeakerAudioTarget
+		- android
+		- iOS
 
-Source => Handler =>  (Processor) => Handler => Sender 
-
-Receiver => Handler => (Processor) => Handler => Output
-	   
-
-
-
-
-
-
-Source => Mic or Data
-
-Output => Speaker or Data
-
-Handler => Core 
-
-Processor => Compress or manipulate audio (chainable)
-
-Receiver => Tcp / Udp
-
-Sender => Tcp / Udp
-
-
-
-
-
-Pipe: 
-	- Source
-		-Android mic
-		-iOS mic
-		-win mic
-		-udp network
-		-raw data
-	- Chain Processor
-		-compression
-	- Output
-		-android speaker
-		-ios speaker
-		-win speaker
-		-udp network
-		-raw data
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#IAudioProcessor
+	simple compression?
