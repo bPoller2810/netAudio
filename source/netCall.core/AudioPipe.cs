@@ -5,7 +5,7 @@ using System;
 
 namespace netAudio.core
 {
-    public class AudioPipe
+    public sealed class AudioPipe : IDisposable
     {
         #region private member
         private readonly IAudioSource _source;
@@ -44,5 +44,27 @@ namespace netAudio.core
         }
         #endregion
 
+        #region IDisposable
+        private bool _disposedValue;
+        private void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    _source.AudioCaptured -= HandleIncommingAudio;
+                }
+
+                _disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }
