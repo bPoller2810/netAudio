@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace netAudio.core.Outputs
+namespace netAudio.core.Targets
 {
     public interface IAudioTarget : IDisposable
     {

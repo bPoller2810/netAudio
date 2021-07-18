@@ -1,6 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
-using netAudio.core.Outputs;
+using netAudio.core.Targets;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

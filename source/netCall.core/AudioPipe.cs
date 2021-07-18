@@ -1,4 +1,4 @@
-﻿using netAudio.core.Outputs;
+﻿using netAudio.core.Targets;
 using netAudio.core.Processors;
 using netAudio.core.Sources;
 using System;
