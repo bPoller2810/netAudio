@@ -2,7 +2,7 @@
 
 namespace netAudio.core.Sources
 {
-    public interface IAudioSource : IDisposable
+    public interface IAudioSource
     {
 
         event EventHandler<byte[]> AudioCaptured;

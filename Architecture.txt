@@ -3,17 +3,11 @@
 TODO:
 
 #IAudioSource
-	NetAudioSource
-		- tcp
-		- udp
 	MicAudioSource
 		- android
 		- iOS
 
 #IAudioTarget
-	NetAudioTarget
-		-tcp
-		-udp
 	SpeakerAudioTarget
 		- android
 		- iOS

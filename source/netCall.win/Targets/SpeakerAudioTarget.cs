@@ -6,9 +6,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace netCall.win.Outputs
+namespace netCall.win.Targets
 {
-    public class SpeakerAudioTarget : IAudioTarget
+    public class SpeakerAudioTarget : IAudioTarget, IDisposable
     {
         #region private member
         private readonly WasapiOut _targetDevice;
@@ -65,9 +65,9 @@ namespace netCall.win.Outputs
             {
                 return false;
             }
+            _working = true;
             _targetDevice.Play();
 
-            _working = true;
             _bufferWorker = new Thread(BufferWorker);
             _bufferWorker.Start();
             return true;
@@ -88,7 +88,6 @@ namespace netCall.win.Outputs
         public void OutputAudioData(byte[] data)
         {
             _workerQueue.Enqueue(data);
-
         }
         #endregion
 

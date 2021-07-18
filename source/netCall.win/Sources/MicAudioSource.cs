@@ -7,7 +7,7 @@ using NAudio.CoreAudioApi;
 
 namespace netAudio.win.Sources
 {
-    public class MicAudioSource : IAudioSource
+    public class MicAudioSource : IAudioSource, IDisposable
     {
         #region private member
         private bool _open;
@@ -51,6 +51,7 @@ namespace netAudio.win.Sources
             {
                 return false;
             }
+            _open = true;
             _audioSource.DataAvailable += HandleAudioSourced;
             _audioSource.StartRecording();
             return true;
@@ -61,6 +62,7 @@ namespace netAudio.win.Sources
             {
                 return false;
             }
+            _open = false;
             _audioSource.DataAvailable -= HandleAudioSourced;
             _audioSource.StopRecording();
             return true;

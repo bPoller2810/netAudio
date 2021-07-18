@@ -2,7 +2,7 @@
 
 namespace netAudio.core.Targets
 {
-    public interface IAudioTarget : IDisposable
+    public interface IAudioTarget
     {
 
         void OutputAudioData(byte[] data);
