@@ -14,6 +14,11 @@ namespace netAudio.core.Sources
         #endregion
 
         #region public interaction
+        /// <summary>
+        /// Sends Data into this Source
+        /// </summary>
+        /// <param name="data">The audio Data to be handled</param>
+        /// <returns>true if the action </returns>
         public bool SourceAudio(byte[] data)
         {
             if (!_isOpen)
@@ -39,10 +44,5 @@ namespace netAudio.core.Sources
         }
         #endregion
 
-        #region IDisposable
-        public void Dispose()
-        {//nothing to dispose
-        }
-        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿using netAudio.core;
 using netAudio.win.Sources;
-using netCall.win.Outputs;
+using netCall.win.Targets;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

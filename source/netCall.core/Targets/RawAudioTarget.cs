@@ -10,6 +10,9 @@ namespace netAudio.core.Targets
     public class RawAudioTarget : IAudioTarget
     {
         #region events
+        /// <summary>
+        /// Raised if there is oudio to handle in some way
+        /// </summary>
         public event EventHandler<byte[]> AudioOutput;
         #endregion
 
@@ -38,10 +41,5 @@ namespace netAudio.core.Targets
         }
         #endregion
 
-        #region IDisposable
-        public void Dispose()
-        {//nothing to dispose
-        }
-        #endregion
     }
 }

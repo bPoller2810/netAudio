@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 
 namespace netAudio.core.Targets
 {
+    /// <summary>
+    /// A Target to Send data through Sockets into the network
+    /// </summary>
     public class SocketAudioTarget : IAudioTarget
     {
-
         #region private member
-        private Socket _client;
+        private readonly Socket _client;
         private readonly ConcurrentQueue<byte[]> _workerQueue;
 
         private Thread _bufferWorker;
@@ -19,6 +18,10 @@ namespace netAudio.core.Targets
         #endregion
 
         #region ctor
+        /// <summary>
+        /// Creates the Audio Target that sends the data into the Socket
+        /// </summary>
+        /// <param name="client">The open and ready to send Socket used to communicate</param>
         public SocketAudioTarget(Socket client)
         {
             _client = client;
@@ -74,10 +77,5 @@ namespace netAudio.core.Targets
         }
         #endregion
 
-        #region IDisposable
-        public void Dispose()
-        {//nothing to dispose
-        }
-        #endregion
     }
 }

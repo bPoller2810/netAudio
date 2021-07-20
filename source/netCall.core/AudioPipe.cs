@@ -5,6 +5,11 @@ using System;
 
 namespace netAudio.core
 {
+
+    /// <summary>
+    /// A Pipe to transmit Audio from your Source to a Target.
+    /// AudioProcessors allow to modify the data
+    /// </summary>
     public sealed class AudioPipe : IDisposable
     {
         #region private member
@@ -14,6 +19,13 @@ namespace netAudio.core
         #endregion
 
         #region ctor
+        /// <summary>
+        /// Creates a AudioPipe instance
+        /// </summary>
+        /// <param name="source">The Source of your Audio Data</param>
+        /// <param name="target">The Target(or Output) of your Audio</param>
+        /// <param name="processors">optional processors to modify your data</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public AudioPipe(IAudioSource source, IAudioTarget target, params IAudioProcessor[] processors)
         {
             _source = source ?? throw new ArgumentNullException(nameof(source));
@@ -23,10 +35,16 @@ namespace netAudio.core
         #endregion
 
         #region public interaction
+        /// <summary>
+        /// Starts processing incomming Audio Data
+        /// </summary>
         public void Open()
         {
             _source.AudioCaptured += HandleIncommingAudio;
         }
+        /// <summary>
+        /// Stops processing incomming Audio Data
+        /// </summary>
         public void Close()
         {
             _source.AudioCaptured -= HandleIncommingAudio;

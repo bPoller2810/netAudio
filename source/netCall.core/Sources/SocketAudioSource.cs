@@ -1,13 +1,14 @@
 ﻿using netAudio.core.Extensions;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 
 namespace netAudio.core.Sources
 {
+
+    /// <summary>
+    /// A Source that receives Data from the Socket
+    /// </summary>
     public class SocketAudioSource : IAudioSource
     {
         #region private member
@@ -18,6 +19,10 @@ namespace netAudio.core.Sources
         #endregion
 
         #region ctor
+        /// <summary>
+        /// Creates the Audio Target that receives the data from the Socket
+        /// </summary>
+        /// <param name="client">The open and ready to receive Socket used to communicate</param>
         public SocketAudioSource(Socket client)
         {
             _client = client;
@@ -71,10 +76,5 @@ namespace netAudio.core.Sources
         }
         #endregion;
 
-        #region IDisposable
-        public void Dispose()
-        {//nothing to dispose
-        }
-        #endregion
     }
 }
