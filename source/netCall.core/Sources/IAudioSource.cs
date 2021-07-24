@@ -9,6 +9,11 @@ namespace netAudio.core.Sources
     public interface IAudioSource
     {
         /// <summary>
+        /// Raised if some Exception happens
+        /// </summary>
+        event EventHandler<Exception> OnError;
+
+        /// <summary>
         /// Raised if your source did receive / record Audio
         /// </summary>
         event EventHandler<byte[]> AudioCaptured;

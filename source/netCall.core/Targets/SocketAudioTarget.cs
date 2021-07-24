@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -34,18 +35,26 @@ namespace netAudio.core.Targets
         {
             while (_working)
             {
-                if (!_workerQueue.TryDequeue(out var data))
-                {//the queue seems empty, we just wait until we have data
-                    Thread.Sleep(10);
-                    continue;
-                }
+                try
+                {
+                    if (!_workerQueue.TryDequeue(out var data))
+                    {//the queue seems empty, we just wait until we have data
+                        Thread.Sleep(10);
+                        continue;
+                    }
 
-                _client.Send(data);
+                    _client.Send(data);
+                }
+                catch (Exception ex)
+                {
+                    OnError?.Invoke(this, ex);
+                }
             }
         }
         #endregion
 
         #region IAudioTarget
+        public event EventHandler<Exception> OnError;
         public bool Open()
         {
             if (_working)

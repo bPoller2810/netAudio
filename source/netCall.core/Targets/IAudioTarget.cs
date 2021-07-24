@@ -9,6 +9,11 @@ namespace netAudio.core.Targets
     public interface IAudioTarget
     {
         /// <summary>
+        /// Raised if some Exception happens
+        /// </summary>
+        event EventHandler<Exception> OnError;
+
+        /// <summary>
         /// Takes the Audio to be Played or Processed
         /// </summary>
         /// <param name="data">The audio Data</param>

@@ -31,6 +31,7 @@ namespace netAudio.core.Sources
         #endregion
 
         #region IAudioSource
+        public event EventHandler<Exception> OnError;
         public event EventHandler<byte[]> AudioCaptured;
         public bool Open()
         {

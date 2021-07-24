@@ -21,6 +21,8 @@ namespace netAudio.core.Targets
         #endregion
 
         #region IAudioTarget
+        public event EventHandler<Exception> OnError;
+
         public bool Open()
         {
             _isOpen = true;

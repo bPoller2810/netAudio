@@ -35,19 +35,27 @@ namespace netAudio.core.Sources
             var buffer = new byte[_client.ReceiveBufferSize];
             while (_working)
             {
-                if (_client.Available == 0)
-                {//the queue seems empty, we just wait until we have data
-                    Thread.Sleep(10);
-                    continue;
-                }
+                try
+                {
+                    if (_client.Available == 0)
+                    {//the queue seems empty, we just wait until we have data
+                        Thread.Sleep(10);
+                        continue;
+                    }
 
-                var received = _client.Receive(buffer);
-                AudioCaptured?.Invoke(this, buffer.SubArray(0, received));
+                    var received = _client.Receive(buffer);
+                    AudioCaptured?.Invoke(this, buffer.SubArray(0, received));
+                }
+                catch (Exception ex)
+                {
+                    OnError?.Invoke(this, ex);
+                }
             }
         }
         #endregion
 
         #region IAudioSource
+        public event EventHandler<Exception> OnError;
         public event EventHandler<byte[]> AudioCaptured;
 
         public bool Open()

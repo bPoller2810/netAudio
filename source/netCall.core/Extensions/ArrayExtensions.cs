@@ -17,7 +17,7 @@ namespace netAudio.core.Extensions
         /// <returns>The newly created SubArray</returns>
         public static T[] SubArray<T>(this T[] array, int offset, int length)
         {
-            T[] result = new T[length];
+            var result = new T[length];
             Array.Copy(array, offset, result, 0, length);
             return result;
         }

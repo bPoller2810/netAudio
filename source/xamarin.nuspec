@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>netAudio.xamarin</id>
+    <version>1.0.4</version>
+    <title>netAudio.xamarin</title>
+    <authors>Bernhard Pollerspock</authors>
+    <owners>Bernhard Pollerspock</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <releaseNotes>First release</releaseNotes>
+    <dependencies>
+      <group targetFramework="MonoAndroid0.0">
+        <dependency id="Xamarin.AndroidX.AppCompat" version="1.2.0.5" />
+      </group>
+      <group targetFramework="Xamarin.iOS1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="netAudio.droid\bin\Release\netAudio.core.dll" target="lib\MonoAndroid10\netAudio.core.dll" />
+    <file src="netAudio.droid\bin\Release\netAudio.core.pdb" target="lib\MonoAndroid10\netAudio.core.pdb" />
+    <file src="netAudio.droid\bin\Release\netAudio.droid.dll" target="lib\MonoAndroid10\netAudio.droid.dll" />
+    <file src="netAudio.droid\bin\Release\netAudio.droid.pdb" target="lib\MonoAndroid10\netAudio.droid.pdb" />
+    <file src="netCall.core\bin\Release\netstandard2.0\netAudio.core.dll" target="lib\netstandard2.0\netAudio.core.dll" />
+    <file src="netCall.core\bin\Release\netstandard2.0\netAudio.core.pdb" target="lib\netstandard2.0\netAudio.core.pdb" />
+  </files>
+</package>
