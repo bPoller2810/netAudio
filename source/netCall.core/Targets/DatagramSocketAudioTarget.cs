@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
 namespace netAudio.core.Targets
 {
     /// <summary>
-    /// A Target to Send data through Sockets into the network
+    /// A Target to Send data through UDP Sockets into the network
     /// </summary>
-    public class SocketAudioTarget : IAudioTarget
+    public class DatagramSocketAudioTarget : IAudioTarget
     {
         #region private member
         private readonly Socket _client;
         private readonly ConcurrentQueue<byte[]> _workerQueue;
+        private readonly IPEndPoint _receiver;
 
         private Thread _bufferWorker;
         private bool _working;
@@ -21,11 +23,19 @@ namespace netAudio.core.Targets
         #region ctor
         /// <summary>
         /// Creates the Audio Target that sends the data into the Socket
+        /// SocketType must be set to SocketType.Dgram
         /// </summary>
-        /// <param name="client">The open and ready to send Socket used to communicate</param>
-        public SocketAudioTarget(Socket client)
+        /// <param name="socket">The soocket used to send data</param>
+        /// <param name="receiver">The receiver the data gets sent to</param>
+        public DatagramSocketAudioTarget(Socket socket, IPEndPoint receiver)
         {
-            _client = client;
+            if (socket is null) { throw new ArgumentNullException(nameof(socket)); }
+            if (socket.SocketType != SocketType.Dgram) { throw new Exception("Can only work with Dgram SocketType"); }
+            if (receiver is null) { throw new ArgumentNullException(nameof(receiver)); }
+
+            _client = socket;
+            _receiver = receiver;
+
             _workerQueue = new();
         }
         #endregion
@@ -43,7 +53,7 @@ namespace netAudio.core.Targets
                         continue;
                     }
 
-                    _client.Send(data);
+                    _client.SendTo(data, _receiver);
                 }
                 catch (Exception ex)
                 {

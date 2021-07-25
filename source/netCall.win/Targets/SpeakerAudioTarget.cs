@@ -43,22 +43,28 @@ namespace netCall.win.Targets
         {
             while (_working)
             {
-                if (!_workerQueue.TryDequeue(out var data))
-                {//the queue seems empty, we just wait until we have data
-                    Thread.Sleep(10);
-                    continue;
+                try
+                {
+                    if (!_workerQueue.TryDequeue(out var data))
+                    {//the queue seems empty, we just wait until we have data
+                        Thread.Sleep(10);
+                        continue;
+                    }
+
+                    _provider.ClearBuffer();
+                    _provider.AddSamples(data, 0, data.Length);
                 }
-
-                //Thread.Sleep(_provider.BufferedDuration);
-                //TODO: if we wait the buffered ammount we get incredible delays. this needs to be reworked here
-
-                _provider.ClearBuffer();
-                _provider.AddSamples(data, 0, data.Length);
+                catch(Exception ex)
+                {
+                    OnError?.Invoke(this, ex);
+                }
             }
         }
         #endregion
 
         #region IAudioTarget
+        public event EventHandler<Exception> OnError;
+
         public bool Open()
         {
             if (_working)
