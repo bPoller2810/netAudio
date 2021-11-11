@@ -8,6 +8,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/bPoller2810/netAudio</RepositoryUrl>
     <RepositoryType />
+    <Version>1.5.2</Version>
   </PropertyGroup>
 
 </Project>
