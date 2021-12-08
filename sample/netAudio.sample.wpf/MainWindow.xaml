@@ -9,7 +9,113 @@
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary>
+            <local:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Record" FontSize="18" />
+
+            <ComboBox Grid.Row="1" 
+                      ItemsSource="{Binding Microphones}" 
+                      DisplayMemberPath="FriendlyName" 
+                      SelectedItem="{Binding SelectedMicrophone}"
+                      Margin="5"/>
+            <Button Grid.Row="1" 
+                    Grid.Column="1"
+                    Content="Start recording" 
+                    Command="{Binding StartRecordCommand}"
+                    CommandParameter="{Binding SelectedMicrophone}" 
+                    IsEnabled="{Binding IsRecording, Converter={StaticResource InvertBooleanConverter}}"
+                    Margin="5"/>
+            <Button Grid.Row="1"
+                    Grid.Column="2"
+                    Content="Stop recording"
+                    Command="{Binding StopRecordCommand}"
+                    IsEnabled="{Binding IsRecording}"
+                    Margin="5" />
+
+            <TextBox Grid.Row="2"
+                     Text="{Binding RemoteIp}" 
+                     Margin="5"/>
+            <TextBox Grid.Row="2"
+                     Grid.Column="1"
+                     Text="{Binding RemotePort}" 
+                     Margin="5" />
+            <StackPanel Grid.Row="3" 
+                        Grid.ColumnSpan="3"
+                        Orientation="Horizontal">
+                <TextBlock Text="Samplerate: " FontWeight="Bold" />
+                <TextBlock Text="{Binding AudioSource.WaveFormat.SampleRate}" />
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Playback" FontSize="18" />
+
+            <ComboBox Grid.Row="1"
+                      ItemsSource="{Binding Speakers}"
+                      DisplayMemberPath="FriendlyName" 
+                      SelectedItem="{Binding SelectedSpeaker}"
+                      Margin="5"/>
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    Content="Start playback"
+                    Command="{Binding StartPlaybackCommand}"
+                    CommandParameter="{Binding SelectedSpeaker}"
+                    IsEnabled="{Binding IsPlaying, Converter={StaticResource InvertBooleanConverter}}"
+                    Margin="5" />
+            <Button Grid.Row="1"
+                    Grid.Column="2"
+                    Content="Stop playback"
+                    Command="{Binding StopPlaybackCommand}"
+                    IsEnabled="{Binding IsPlaying}"
+                    Margin="5" />
+
+            <TextBox Grid.Row="2"
+                     Text="{Binding LocalPort}"
+                     Margin="5" />
+
+        </Grid>
 
     </Grid>
 </Window>
