@@ -7,10 +7,35 @@
         <local:MainVM />
     </ContentPage.BindingContext>
 
-    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
-        <Button Text="Start" Command="{Binding StartCall}"/>
-        <Button Text="Stop" Command="{Binding StopCall}" />
+    <ScrollView>
+        <StackLayout>
 
-    </StackLayout>
+            <Entry Text="{Binding SampleRate}" />
+
+            <BoxView HeightRequest="10" />
+
+            <Label Text="Record" />
+            <Entry Text="{Binding RemoteIp}" />
+            <Entry Text="{Binding RemotePort}" />
+            <Button Text="Start recording"
+                    Command="{Binding StartRecordCommand}" 
+                    IsEnabled="{Binding IsRecording, Converter={StaticResource InvertBooleanConverter}}" />
+            <Button Text="Stop recording"
+                    Command="{Binding StopRecordCommand}"
+                    IsEnabled="{Binding IsRecording}" />
+
+            <BoxView HeightRequest="10" />
+
+            <Label Text="Playback" />
+            <Entry Text="{Binding LocalPort}" />
+            <Button Text="Start playback"
+                    Command="{Binding StartPlaybackCommand}" 
+                    IsEnabled="{Binding IsPlaying, Converter={StaticResource InvertBooleanConverter}}" />
+            <Button Text="Stop playback"
+                    Command="{Binding StopPlaybackCommand}"
+                    IsEnabled="{Binding IsPlaying}" />
+
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>

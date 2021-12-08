@@ -12,15 +12,14 @@ using netAudio.droid.Sources;
 
 namespace netAudio.sample.xamarin.Droid
 {
-    [Activity(Label = "netAudio.sample.xamarin", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
+    [Activity(Label = "netAudio.sample.xamarin", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            RegisterMic();
-            RegisterSpeaker();
+            SimpleIoc.Default.Register<IAudioProvider, AndroidAudioProvider>();
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
@@ -33,19 +32,6 @@ namespace netAudio.sample.xamarin.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        private void RegisterSpeaker()
-        {
-            if (!SimpleIoc.Default.IsRegistered<IAudioTarget>())
-            {
-                SimpleIoc.Default.Register<IAudioTarget>(() => new SpeakerAudioTarget(44100));
-            }
-        }
-        private void RegisterMic()
-        {
-            if (!SimpleIoc.Default.IsRegistered<IAudioSource>())
-            {
-                SimpleIoc.Default.Register<IAudioSource>(() => new MicAudioSource(44100));
-            }
-        }
+
     }
 }
