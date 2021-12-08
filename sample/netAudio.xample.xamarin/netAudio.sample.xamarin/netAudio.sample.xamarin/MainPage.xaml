@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:App1"
+             x:Class="netAudio.sample.xamarin.MainPage">
+    <ContentPage.BindingContext>
+        <local:MainVM />
+    </ContentPage.BindingContext>
+
+    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+        <Button Text="Start" Command="{Binding StartCall}"/>
+        <Button Text="Stop" Command="{Binding StopCall}" />
+
+    </StackLayout>
+
+</ContentPage>
