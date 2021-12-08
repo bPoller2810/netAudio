@@ -10,11 +10,11 @@ namespace netAudio.core.Sources
     /// <summary>
     /// A Source that receives Data from a UDP Socket
     /// </summary>
-    public class SocketAudioSource : IAudioSource
+    public class UdpAudioSource : IAudioSource
     {
         #region private member
-        private readonly Socket _client;
-        private readonly IPEndPoint _sender;
+        private readonly UdpClient _client;
+        private IPEndPoint _remote;
 
         private Thread _receiveWorker;
         private bool _working;
@@ -25,36 +25,31 @@ namespace netAudio.core.Sources
         /// Creates the Audio Target that receives the data from the Socket
         /// </summary>
         /// <param name="client">The open and ready to receive Socket used to communicate</param>
-        public SocketAudioSource(Socket socket, IPEndPoint sender)
+        public UdpAudioSource(UdpClient client, IPEndPoint remote)
         {
-            if (socket is null) { throw new ArgumentNullException(nameof(socket)); }
-            if (socket.SocketType != SocketType.Dgram) { throw new Exception("Can only work with Dgram SocketType"); }
-            if (sender is null) { throw new ArgumentNullException(nameof(sender)); }
-
-            _client = socket;
-            _sender = sender;
+            _client = client ?? throw new ArgumentNullException(nameof(client));
+            _remote = remote ?? throw new ArgumentNullException(nameof(remote));
         }
         #endregion
 
         #region buffer worker
         private void ReceiveWorker()
         {
-            var buffer = new byte[_client.ReceiveBufferSize];
-            var dataSender = (EndPoint)new IPEndPoint(IPAddress.Any, 0);
             while (_working)
             {
                 try
                 {
                     if (_client.Available == 0)
                     {//the queue seems empty, we just wait until we have data
-                        Thread.Sleep(10);
+                        Thread.Sleep(1);
                         continue;
                     }
 
-                    var received = _client.ReceiveFrom(buffer, ref dataSender);
-                    if (_sender.Equals(dataSender))//ensure only the valid bytes get used
+                    var received = _client.Receive(ref _remote);
+
+                    if (received.Length > 0)
                     {
-                        AudioCaptured?.Invoke(this, buffer.SubArray(0, received));
+                        AudioCaptured?.Invoke(this, received);
                     }
                 }
                 catch (Exception ex)

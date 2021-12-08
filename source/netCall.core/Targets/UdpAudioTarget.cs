@@ -9,12 +9,12 @@ namespace netAudio.core.Targets
     /// <summary>
     /// A Target to Send data through UDP Sockets into the network
     /// </summary>
-    public class DatagramSocketAudioTarget : IAudioTarget
+    public class UdpAudioTarget : IAudioTarget
     {
         #region private member
-        private readonly Socket _client;
+        private readonly UdpClient _client;
         private readonly ConcurrentQueue<byte[]> _workerQueue;
-        private readonly IPEndPoint _receiver;
+        private readonly IPEndPoint _remote;
 
         private Thread _bufferWorker;
         private bool _working;
@@ -27,14 +27,10 @@ namespace netAudio.core.Targets
         /// </summary>
         /// <param name="socket">The soocket used to send data</param>
         /// <param name="receiver">The receiver the data gets sent to</param>
-        public DatagramSocketAudioTarget(Socket socket, IPEndPoint receiver)
+        public UdpAudioTarget(UdpClient client, IPEndPoint remote)
         {
-            if (socket is null) { throw new ArgumentNullException(nameof(socket)); }
-            if (socket.SocketType != SocketType.Dgram) { throw new Exception("Can only work with Dgram SocketType"); }
-            if (receiver is null) { throw new ArgumentNullException(nameof(receiver)); }
-
-            _client = socket;
-            _receiver = receiver;
+            _client = client ?? throw new ArgumentNullException(nameof(client));
+            _remote = remote ?? throw new ArgumentNullException(nameof(remote));
 
             _workerQueue = new();
         }
@@ -49,11 +45,12 @@ namespace netAudio.core.Targets
                 {
                     if (!_workerQueue.TryDequeue(out var data))
                     {//the queue seems empty, we just wait until we have data
-                        Thread.Sleep(10);
+                        Thread.Sleep(1);
                         continue;
                     }
 
-                    _client.SendTo(data, _receiver);
+
+                    _client.Send(data, data.Length, _remote);
                 }
                 catch (Exception ex)
                 {
