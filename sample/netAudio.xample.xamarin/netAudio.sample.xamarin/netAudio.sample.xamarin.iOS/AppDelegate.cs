@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using GalaSoft.MvvmLight.Ioc;
 using UIKit;
 
 namespace netAudio.sample.xamarin.iOS
@@ -22,6 +22,9 @@ namespace netAudio.sample.xamarin.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+
+            SimpleIoc.Default.Register<IAudioProvider, IosAudioProvider>();
+
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

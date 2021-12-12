@@ -6,35 +6,28 @@
     <ContentPage.BindingContext>
         <local:MainVM />
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:InvertBooleanConverter x:Key="InvertBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ScrollView>
         <StackLayout>
 
+            <BoxView HeightRequest="10" />
             <Entry Text="{Binding SampleRate}" />
 
             <BoxView HeightRequest="10" />
-
-            <Label Text="Record" />
-            <Entry Text="{Binding RemoteIp}" />
-            <Entry Text="{Binding RemotePort}" />
-            <Button Text="Start recording"
-                    Command="{Binding StartRecordCommand}" 
-                    IsEnabled="{Binding IsRecording, Converter={StaticResource InvertBooleanConverter}}" />
-            <Button Text="Stop recording"
-                    Command="{Binding StopRecordCommand}"
-                    IsEnabled="{Binding IsRecording}" />
-
-            <BoxView HeightRequest="10" />
-
-            <Label Text="Playback" />
-            <Entry Text="{Binding LocalPort}" />
-            <Button Text="Start playback"
-                    Command="{Binding StartPlaybackCommand}" 
+            <Button Text="Start"
+                    Command="{Binding StartCommand}" 
                     IsEnabled="{Binding IsPlaying, Converter={StaticResource InvertBooleanConverter}}" />
-            <Button Text="Stop playback"
-                    Command="{Binding StopPlaybackCommand}"
+            <Button Text="Stop"
+                    Command="{Binding StopCommand}"
                     IsEnabled="{Binding IsPlaying}" />
 
+            <BoxView HeightRequest="10" />
+           
         </StackLayout>
     </ScrollView>
 

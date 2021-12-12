@@ -2,6 +2,7 @@
 using netAudio.core.Targets;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Encoding = Android.Media.Encoding;
 
@@ -108,6 +109,7 @@ namespace netAudio.droid.Targets
 
         public void OutputAudioData(byte[] data)
         {
+            Debug.WriteLine($"Enqueuing {data.Length} bytes");
             _workerQueue.Enqueue(data);
         }
         #endregion

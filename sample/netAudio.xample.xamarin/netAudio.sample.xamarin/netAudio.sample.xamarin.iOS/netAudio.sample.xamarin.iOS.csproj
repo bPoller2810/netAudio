@@ -63,8 +63,11 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="IosAudioProvider.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="MicAudioSource.cs" />
+    <Compile Include="SpeakerAudioTarget.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,6 +134,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\source\netCall.core\netAudio.core.csproj">
+      <Project>{1402B70F-BB85-47F6-8A32-BEE3C4F43763}</Project>
+      <Name>netAudio.core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\netAudio.sample.xamarin\netAudio.sample.xamarin.csproj">
       <Project>{482464D8-1B33-4176-A6A4-50ADFB8C318A}</Project>
       <Name>netAudio.sample.xamarin</Name>
